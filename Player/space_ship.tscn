@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://11mkas6dam2l"]
+
+[ext_resource type="Script" path="res://Player/SpaceShip.cs" id="1_xomki"]
+[ext_resource type="Texture2D" uid="uid://jo4ls12k6gif" path="res://Player/Sprites/SpaceshipMove_0001.png" id="2_flror"]
+[ext_resource type="Texture2D" uid="uid://3b8x15k5ql4n" path="res://Player/Sprites/SpaceshipMove_0002.png" id="3_n04tk"]
+[ext_resource type="Texture2D" uid="uid://cueq60xp2casg" path="res://Player/Sprites/SpaceshipMove_0003.png" id="4_wg1d0"]
+[ext_resource type="Texture2D" uid="uid://bxjfr3qx6wcpp" path="res://Player/Sprites/SpaceshipMove_0004.png" id="5_x6d6w"]
+[ext_resource type="Texture2D" uid="uid://6vly8kajncby" path="res://Player/Sprites/SpaceshipMove_0005.png" id="6_o2h27"]
+[ext_resource type="Texture2D" uid="uid://b8khc4r1lugp" path="res://Player/Sprites/Spaceship.png" id="7_5ejyb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37l3t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8aek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_flror")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n04tk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wg1d0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x6d6w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_o2h27")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_5ejyb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SpaceShip" type="CharacterBody2D"]
+script = ExtResource("1_xomki")
+
+[node name="ShipCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_37l3t")
+
+[node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s8aek")
