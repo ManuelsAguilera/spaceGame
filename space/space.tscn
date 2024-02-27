@@ -1,24 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://cvag6orux4huw"]
 
 [ext_resource type="PackedScene" uid="uid://11mkas6dam2l" path="res://Player/space_ship.tscn" id="1_ey5fq"]
-[ext_resource type="Script" path="res://space/space.cs" id="1_kn868"]
 [ext_resource type="PackedScene" uid="uid://euf5r6nrl7sb" path="res://Player/camera.tscn" id="2_4u4c2"]
 [ext_resource type="PackedScene" uid="uid://b2x2tfcha1ioh" path="res://Planets/galaxy.tscn" id="3_1yk80"]
 [ext_resource type="PackedScene" uid="uid://csofnpq3767bp" path="res://parallax_background.tscn" id="5_brxff"]
 [ext_resource type="Texture2D" uid="uid://bqmrrxueo7vto" path="res://space/Sprite/spaceBg.png" id="5_r4218"]
-[ext_resource type="Texture2D" uid="uid://dh1e7lax5ugtx" path="res://space/Sprite/spaceBgTrans.png" id="6_vwu6e"]
+[ext_resource type="Texture2D" uid="uid://dh1e7lax5ugtx" path="res://space/Sprite/SpaceBgTrans.png" id="6_vwu6e"]
+[ext_resource type="Script" path="res://other/FpsMeter.cs" id="8_2sjhl"]
 
 [node name="Space" type="Node2D"]
-script = ExtResource("1_kn868")
 
 [node name="SpaceShip" parent="." instance=ExtResource("1_ey5fq")]
-position = Vector2(96, 52)
-
-[node name="Camera2D" parent="." instance=ExtResource("2_4u4c2")]
-ignore_rotation = false
-position_smoothing_enabled = true
-
-[node name="Galaxy" parent="." instance=ExtResource("3_1yk80")]
+position = Vector2(0, -100)
+motion_mode = 1
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("5_brxff")]
 
@@ -38,3 +32,40 @@ motion_mirroring = Vector2(1000, 1000)
 texture = ExtResource("6_vwu6e")
 centered = false
 offset = Vector2(50, 30)
+
+[node name="shipCamera" parent="." instance=ExtResource("2_4u4c2")]
+ignore_rotation = false
+position_smoothing_enabled = true
+
+[node name="Galaxy1" parent="." instance=ExtResource("3_1yk80")]
+position = Vector2(1000, 0)
+planetCount = 40
+radiusX = 3000.0
+radiusY = 10000.0
+meanMass = 500.0
+massDeviation = 1000.0
+sunMass = 1e+12
+
+[node name="Galaxy2" parent="." instance=ExtResource("3_1yk80")]
+position = Vector2(1000, 0)
+planetCount = 40
+radiusX = 3000.0
+radiusY = 10000.0
+meanMass = 500.0
+massDeviation = 1000.0
+sunMass = 1e+12
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="commandCanvas" type="CanvasLayer" parent="Control"]
+
+[node name="FpsMeter" type="Label" parent="Control/commandCanvas"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("8_2sjhl")
+metadata/_edit_use_anchors_ = true

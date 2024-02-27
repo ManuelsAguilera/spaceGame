@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://d34anrvn35un4"]
+
+[node name="gravityManager" type="Node2D"]

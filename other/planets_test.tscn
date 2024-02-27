@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpke5xthvi46v"]
+
+[ext_resource type="Script" path="res://other/autoCamera.cs" id="2_1piet"]
+[ext_resource type="PackedScene" uid="uid://b2x2tfcha1ioh" path="res://Planets/galaxy.tscn" id="2_7683o"]
+[ext_resource type="Script" path="res://other/FpsMeter.cs" id="3_6ulo0"]
+
+[node name="PlanetsTest" type="Node2D"]
+
+[node name="autoCamera" type="Camera2D" parent="."]
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("2_1piet")
+
+[node name="Galaxy" parent="." instance=ExtResource("2_7683o")]
+position = Vector2(-2000, 0)
+planetCount = 40
+radiusX = 3000.0
+radiusY = 10000.0
+meanMass = 800.0
+massDeviation = 2000.0
+sunMass = 1e+10
+G = 6e+06
+
+[node name="Galaxy2" parent="." instance=ExtResource("2_7683o")]
+position = Vector2(2000, 0)
+planetCount = 40
+radiusX = 3000.0
+radiusY = 10000.0
+meanMass = 500.0
+massDeviation = 2000.0
+sunMass = 1e+12
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-4544, 3054)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="commandCanvas" type="CanvasLayer" parent="Control"]
+
+[node name="FpsMeter" type="Label" parent="Control/commandCanvas"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_6ulo0")

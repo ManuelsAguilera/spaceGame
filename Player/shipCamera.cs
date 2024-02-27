@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Camera2D : Godot.Camera2D
+public partial class shipCamera : Godot.Camera2D
 {
 // Called when the node enters the scene tree for the first time.
 	private CharacterBody2D  ship;
@@ -19,9 +19,9 @@ public partial class Camera2D : Godot.Camera2D
 	public override void _Process(double delta)
 	{
 		
-		Vector2 charPos = ship.GetPositionDelta();
+		Vector2 charPos = ship.Position;
 		//go to chPos
-		Position = Position+ charPos;
+		Position = charPos;
 		//GD.Print(Position);
 		
 		}

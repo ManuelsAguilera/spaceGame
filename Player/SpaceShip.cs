@@ -8,7 +8,7 @@ public partial class SpaceShip : CharacterBody2D
 
 {
     [Export]
-	int Speed = 10;
+	float Speed = 10;
 
 	private float G = 6.67430e-11f;
 
@@ -25,20 +25,20 @@ public partial class SpaceShip : CharacterBody2D
 	void _Input()
 	{
 		//get the input
-		inputVector = new Vector2();
-		if (Input.IsActionPressed("ui_right"))
+		inputVector = new Vector2(0,0);
+		if (Input.IsActionPressed("right"))
 		{
 			inputVector.X += 1;
 		}
-		if (Input.IsActionPressed("ui_left"))
+		if (Input.IsActionPressed("left"))
 		{
 			inputVector.X -= 1;
 		}
-		if (Input.IsActionPressed("ui_down"))
+		if (Input.IsActionPressed("down"))
 		{
 			inputVector.Y += 1;
 		}
-		if (Input.IsActionPressed("ui_up"))
+		if (Input.IsActionPressed("up"))
 		{
 			inputVector.Y -= 1;
 		}
@@ -46,23 +46,24 @@ public partial class SpaceShip : CharacterBody2D
 	}
 	private void checkMovement()
 	{
+		
 		//get the input
-		if (Velocity.X <300 || Velocity.Y <300)
+		if (Velocity.DistanceTo(new Vector2()) < 600 )
 		{
 			Velocity += inputVector * Speed;
 		}
-		//If with air,
-		Velocity -= (inputVector * Speed)/3;
-		
-		
-		//GD.Print(Velocity);
-		
+		else
+		{
+			Velocity = Velocity - new Vector2(Velocity.X/10,Velocity.Y/10);
+		}
+		//GD.Print("velocity "+Velocity);
+		//GD.Print("inputVector "+inputVector);
 		
 	}
 	protected void checkRotation()
 	{
 		LookAt(GetGlobalMousePosition());
-		Velocity += Transform.X * Input.GetAxis("down", "up") * Speed;
+		//Velocity += Transform.X * Input.GetAxis("down", "up") * Speed;
 	}
 
 	public void addForce(float Mass, float distance, Vector2 direction)
@@ -71,6 +72,33 @@ public partial class SpaceShip : CharacterBody2D
 		Velocity += (G * Mass * Mass) / distance * distance * direction;
 	}
 	
+
+	private void outOfBounds()
+	{
+		//Make sure the object does not go out of the screen.
+		if (Position.X > 1e4f)
+		{
+			Position = new Vector2(-1e4f,Position.Y);
+		}
+		if (Position.X < -1e4f)
+		{
+			Position = new Vector2(1e4f,Position.Y);
+		}
+		if (Position.Y > 1e4f)
+		{
+			Position = new Vector2(Position.X,-1e4f);
+		}
+		if (Position.Y < -1e4f)
+		{
+			Position = new Vector2(Position.X,1e4f);
+		}
+	}
+
+	public override void _Process(double delta)
+	{
+		outOfBounds();
+		// Called every frame. 'delta' is the elapsed time since the previous frame.
+	}
 	public override void _PhysicsProcess(double delta)
 	{
 		//GD.Print(Velocity);

@@ -42,6 +42,7 @@ animations = [{
 }]
 
 [node name="SpaceShip" type="CharacterBody2D"]
+safe_margin = 0.001
 script = ExtResource("1_xomki")
 
 [node name="ShipCollision" type="CollisionShape2D" parent="."]

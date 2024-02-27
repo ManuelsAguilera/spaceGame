@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfkxp4tsbqvk8"]
+
+[ext_resource type="Script" path="res://menus/TestPlanets.cs" id="1_wn2ab"]
+[ext_resource type="Texture2D" uid="uid://bqmrrxueo7vto" path="res://space/Sprite/spaceBg.png" id="1_y1ceo"]
+[ext_resource type="Script" path="res://menus/Beta_game.cs" id="2_dgf64"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_boq4p"]
+font_size = 50
+outline_size = 30
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="spaceBg" type="Sprite2D" parent="."]
+texture = ExtResource("1_y1ceo")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -220.0
+offset_top = -156.0
+offset_right = 190.0
+offset_bottom = -87.0
+text = "Space game beta"
+label_settings = SubResource("LabelSettings_boq4p")
+
+[node name="TestPlanets" type="Button" parent="."]
+layout_mode = 0
+offset_left = -76.0
+offset_top = 68.0
+offset_right = 68.0
+offset_bottom = 118.0
+text = "Test Planets
+"
+script = ExtResource("1_wn2ab")
+
+[node name="Beta game" type="Button" parent="."]
+layout_mode = 0
+offset_left = -81.0
+offset_top = 172.0
+offset_right = 75.0
+offset_bottom = 227.0
+text = "Go to beta game
+"
+script = ExtResource("2_dgf64")
+
+[node name="menu View" type="Camera2D" parent="."]
+
+[connection signal="pressed" from="TestPlanets" to="TestPlanets" method="_on_pressed"]
