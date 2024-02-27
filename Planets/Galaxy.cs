@@ -15,22 +15,35 @@ public partial class Galaxy : Node2D
 
 	[Export] public float meanMass;
 	[Export] public float massDeviation;
+	[Export] public float sunDirection;
 
 	[Export] public float sunMass;
 	
+
+	private SpaceShip ship =  null;
 	private Star sun;
 
-	[Export]public float G = 6.6743e-6f;
+	[Export]public float G;
 	
 	public List<Planet> planets = new List<Planet>();
 	public override void _Ready()
 	{
+		G = 1/G;
 		//createStar();
 		for (int i = 0; i < planetCount; i++)
 		{
 			createPlanet();
 		}
 		createStar();
+		sun.setDirection(sunDirection);
+
+		//Find the player, else set it as null
+
+		ship = (SpaceShip) GetNode("/root/Space/SpaceShip");
+		if (ship == null)
+		{
+			GD.Print("No player found");
+		}
 	}
 
 	private void createStar()
@@ -66,6 +79,7 @@ public partial class Galaxy : Node2D
 		//set a random mass
 		planet.setMass((float)GD.Randfn((double) meanMass,(double) massDeviation) );
 
+			
 		AddChild(planet);
 		//store the planet in the list
 		planets.Add(planet);
@@ -75,7 +89,7 @@ public partial class Galaxy : Node2D
 	private Vector2 calculateGravity(int i, int j)
 	{
 		//Calculates gravity between two planets in the list
-		//and returns a vector2 with the force to apply to the planet.
+		//a	nd returns a vector2 with the force to apply to the planet.
 		
 		Vector2 Gforce = new Vector2(0,0);
 		//get the distance between the planets
@@ -97,7 +111,7 @@ public partial class Galaxy : Node2D
 	//Calculate between a planet and the sun
 	private Vector2 calculateGravity(int i)
 	{
-		//Calculates gravity between two planets in the list
+		//Calculates gravity between a planet and the sun
 		//and returns a vector2 with the force to apply to the planet.
 		
 		Vector2 Gforce = new Vector2(0,0);
@@ -112,6 +126,42 @@ public partial class Galaxy : Node2D
 		return Gforce;
 	}
 
+	private Vector2 calculateGravity(int i, SpaceShip ship)
+	{
+		//Calculates gravity for the ship based on the planet
+		//and returns a vector2 with the force to apply to the ship.
+		
+		Vector2 Gforce = new Vector2(0,0);
+		//get the distance between the planets
+		var distance = (Vector2) ship.Position -(Vector2)planets[i].getPosition();
+		
+		if (distance.Length() < 20f)
+			return Gforce;
+
+		Gforce = G * distance.Normalized()*(-1) *(planets[i].Mass * ship.Mass);
+		Gforce = Gforce / distance.Length();
+		return Gforce;
+	}
+
+	private Vector2 calculateGravity(Star sun, SpaceShip ship)
+	{
+		//Calculates gravity for the ship based on the planet
+		//and returns a vector2 with the force to apply to the ship.
+		
+		Vector2 Gforce = new Vector2(0,0);
+		//get the distance between the planets
+		var distance = (Vector2) ship.Position -(Vector2)sun.getPosition();
+		
+		if (distance.Length() < 20f)
+			return Gforce;
+
+		Gforce = G * distance.Normalized()*(-1) *(sun.Mass * ship.Mass);
+		Gforce = Gforce / distance.Length();
+		return Gforce;
+	}
+	
+
+	
 	private void updateGravity()
 	{
 		//update the gravity force of each planet
@@ -131,6 +181,18 @@ public partial class Galaxy : Node2D
 			}
 			
 		}
+
+		//Add gravity to ship
+		if (ship == null)
+			return;
+		//else
+		for (int i =0; i < planets.Count; i++)
+		{
+			
+			ship.addForce(calculateGravity(i, ship));
+			
+		}
+		ship.addForce(calculateGravity(sun, ship));
 	
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

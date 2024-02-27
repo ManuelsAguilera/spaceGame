@@ -23,7 +23,7 @@ public partial class Planet : RigidBody2D
 	{
 		Mass =  mass ;
 		//make the scale of the planet proportional to the mass
-		scale = new Vector2(MathF.Log2(mass)/5,MathF.Log2(mass)/5);
+		scale = new Vector2(MathF.Log10(mass/2),MathF.Log10(mass/2));
 		
 		var sprite = (Sprite2D)GetNode("PlanetSprite");
 		sprite.Scale = scale;

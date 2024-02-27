@@ -6,7 +6,9 @@ public partial class Star : RigidBody2D
 	// Called when the node enters the scene tree for the first time.
 	private double rotation = 0;
 	private double time_elapsed = 0;
+	private float direction=1;
 
+	
 	public override void _Ready()
 	{
 		//default mass
@@ -14,6 +16,13 @@ public partial class Star : RigidBody2D
 		
 	}
 
+	public void setDirection(float dir)
+	{
+		if (dir >=0)
+			direction = 1;
+		else
+			direction = -1;
+	}
 	public void setMass(float mass)
 	{
 		Mass =  mass ;
@@ -27,7 +36,7 @@ public partial class Star : RigidBody2D
 	{
 		//Calculate magnitude of the force
 		float magnitude = 50e8f;
-		var force = new Vector2(0,magnitude);
+		var force = new Vector2(0,magnitude*direction);
 		
 		if (time_elapsed < 1)
 			time_elapsed+=delta;
@@ -35,7 +44,7 @@ public partial class Star : RigidBody2D
 				time_elapsed = 0;
 
 				if (rotation < Math.PI)
-					rotation+=Math.PI/12;
+					rotation+=Math.PI/36;
 				else
 					rotation = -Math.PI;
 			}

@@ -10,7 +10,7 @@ public partial class SpaceShip : CharacterBody2D
     [Export]
 	float Speed = 10;
 
-	private float G = 6.67430e-11f;
+	[Export] public float Mass = 5000f;
 
 	private AnimatedSprite2D _AnimSprite2D;
 
@@ -48,16 +48,11 @@ public partial class SpaceShip : CharacterBody2D
 	{
 		
 		//get the input
-		if (Velocity.DistanceTo(new Vector2()) < 600 )
+		if (Velocity.DistanceTo(new Vector2()) < 2000 )
 		{
 			Velocity += inputVector * Speed;
 		}
-		else
-		{
-			Velocity = Velocity - new Vector2(Velocity.X/10,Velocity.Y/10);
-		}
-		//GD.Print("velocity "+Velocity);
-		//GD.Print("inputVector "+inputVector);
+		
 		
 	}
 	protected void checkRotation()
@@ -66,10 +61,10 @@ public partial class SpaceShip : CharacterBody2D
 		//Velocity += Transform.X * Input.GetAxis("down", "up") * Speed;
 	}
 
-	public void addForce(float Mass, float distance, Vector2 direction)
+	public void addForce(Vector2 force)
 	{
-		//add the force to the velocity
-		Velocity += (G * Mass * Mass) / distance * distance * direction;
+		//Calculate velocity based on the force applied
+		Velocity += force/Mass;
 	}
 	
 

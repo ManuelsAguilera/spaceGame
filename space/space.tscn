@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvag6orux4huw"]
+[gd_scene load_steps=9 format=3 uid="uid://cvag6orux4huw"]
 
 [ext_resource type="PackedScene" uid="uid://11mkas6dam2l" path="res://Player/space_ship.tscn" id="1_ey5fq"]
 [ext_resource type="PackedScene" uid="uid://euf5r6nrl7sb" path="res://Player/camera.tscn" id="2_4u4c2"]
@@ -7,14 +7,27 @@
 [ext_resource type="Texture2D" uid="uid://bqmrrxueo7vto" path="res://space/Sprite/spaceBg.png" id="5_r4218"]
 [ext_resource type="Texture2D" uid="uid://dh1e7lax5ugtx" path="res://space/Sprite/SpaceBgTrans.png" id="6_vwu6e"]
 [ext_resource type="Script" path="res://other/FpsMeter.cs" id="8_2sjhl"]
+[ext_resource type="AudioStream" uid="uid://c3uvfxa5drfpo" path="res://other/Estabilización.mp3" id="8_amkko"]
 
 [node name="Space" type="Node2D"]
 
 [node name="SpaceShip" parent="." instance=ExtResource("1_ey5fq")]
-position = Vector2(0, -100)
-motion_mode = 1
+position = Vector2(-1000, 1000)
+
+[node name="Galaxy" parent="." instance=ExtResource("3_1yk80")]
+position = Vector2(-5000, 0)
+planetCount = 100
+radiusX = 6000.0
+radiusY = 20000.0
+meanMass = 1500.0
+massDeviation = 900.0
+sunDirection = -1.0
+sunMass = 9.22337e+18
+G = 50000.0
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("5_brxff")]
+scale = Vector2(1.5, 1.5)
+transform = Transform2D(1.5, 0, 0, 1.5, 0, 0)
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(1000, 1000)
@@ -35,25 +48,8 @@ offset = Vector2(50, 30)
 
 [node name="shipCamera" parent="." instance=ExtResource("2_4u4c2")]
 ignore_rotation = false
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
-
-[node name="Galaxy1" parent="." instance=ExtResource("3_1yk80")]
-position = Vector2(1000, 0)
-planetCount = 40
-radiusX = 3000.0
-radiusY = 10000.0
-meanMass = 500.0
-massDeviation = 1000.0
-sunMass = 1e+12
-
-[node name="Galaxy2" parent="." instance=ExtResource("3_1yk80")]
-position = Vector2(1000, 0)
-planetCount = 40
-radiusX = 3000.0
-radiusY = 10000.0
-meanMass = 500.0
-massDeviation = 1000.0
-sunMass = 1e+12
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -69,3 +65,9 @@ offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("8_2sjhl")
 metadata/_edit_use_anchors_ = true
+
+[node name="musicPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_amkko")
+volume_db = 8.655
+autoplay = true
+max_distance = 20000.0
