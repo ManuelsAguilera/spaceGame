@@ -2,31 +2,58 @@ using Godot;
 using System;
 
 
-public partial class Planet : RigidBody2D
+public partial class Planet : RigidBody2D, IGravityBody
 {
 	
 	//Stores the gravity force applied by external bodies.
 	[Export]public Vector2 gravityForce;
 
-	
+	private float G;
 	private Vector2 scale;
 
-	public override void _Ready()
+
+	public void _Ready()
 	{
-		//
+		//First code to be executed
 		scale=Scale*Mass/500		;
 		gravityForce = new Vector2(0,0);
 		addTangencialVelocity();
 
 	}
-	public void setMass(float mass)
+	
+
+
+	public void setGravityConstant(float G)
+	{
+		this.G = G;
+	}
+	public void setGravityMass(float mass)
 	{
 		Mass =  mass ;
 		//make the scale of the planet proportional to the mass
-		scale = new Vector2(MathF.Log10(mass/2),MathF.Log10(mass/2));
-		
-		var sprite = (Sprite2D)GetNode("PlanetSprite");
-		sprite.Scale = scale;
+		//this.setScale(); todo	
+	}
+	public float getGravityMass()
+	{
+		return Mass;
+	}
+	public Vector2 getGravityPosition()
+	{
+		return new Vector2(Position.X, Position.Y);
+	}
+
+	public void applyGravityForce(Vector2 position, float mass)
+	{
+		gravityForce= new Vector2(0,0);
+		//Calculate the direction of the force
+		Vector2 direction = position - Position;
+		//Calculate the magnitude of the force
+		float distance = direction.Length();
+		//Normalize the direction
+		direction = direction.Normalized();
+		//Calculate the force
+		gravityForce += direction* (mass) / (distance);
+		gravityForce = gravityForce*G;
 		
 	}
 
@@ -34,18 +61,10 @@ public partial class Planet : RigidBody2D
 	{
 		Position = position;
 	}
-	public Vector2 getPosition()
-	{
-		return new Vector2(Position.X, Position.Y);
-	}
+	
 
-	public void setGravityForce(Vector2 force)
-	{
-		
-		
-		gravityForce=force;
-				
-	}
+	
+	
 	
 	
 	public void addTangencialVelocity()
@@ -57,7 +76,7 @@ public partial class Planet : RigidBody2D
 	}
     public override void _IntegrateForces(PhysicsDirectBodyState2D  state)
 	{
-		
+		//GD.Print("Integrate Forces",state.LinearVelocity);
 		state.ApplyCentralImpulse(gravityForce);
 		
 	}
@@ -66,7 +85,6 @@ public partial class Planet : RigidBody2D
 	//Make sure the object does not go out of the screen.
 	public override void _Process(double delta)
 	{
-		
 		
 		return;
 	}

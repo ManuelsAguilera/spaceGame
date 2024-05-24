@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Star : RigidBody2D
+public partial class Star : RigidBody2D, IGravityBody
 {
 	// Called when the node enters the scene tree for the first time.
 	private double rotation = 0;
@@ -10,32 +10,44 @@ public partial class Star : RigidBody2D
 
 	
 	public override void _Ready()
-	{
-		//default mass
-		Mass = 5e7f;
-		
+	{		
 	}
 
-	public void setDirection(float dir)
+	//Interface methods:
+	public void setGravityConstant(float G)
 	{
-		if (dir >=0)
-			direction = 1;
-		else
-			direction = -1;
+		//Not used in this example
 	}
-	public void setMass(float mass)
+
+	public void setGravityMass(float mass)
 	{
-		Mass =  mass ;
+		Mass = mass;
 	}
-	public Vector2 getPosition()
+
+	public float getGravityMass()
+	{
+		return Mass;
+	}
+
+	public Vector2 getGravityPosition()
 	{
 		return new Vector2(Position.X, Position.Y);
+	}
+
+	public void applyGravityForce(Vector2 position, float force)
+	{
+		//A star does not get atracted to other objects.
+	}
+
+	public void setDirection(float direction)
+	{
+		this.direction = direction;
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		//Calculate magnitude of the force
-		float magnitude = 50e8f;
+		float magnitude = 1e-8f;
 		var force = new Vector2(0,magnitude*direction);
 		
 		if (time_elapsed < 1)

@@ -4,7 +4,7 @@ using System;
  
  */
 
-public partial class SpaceShip : CharacterBody2D
+public partial class SpaceShip : CharacterBody2D,IGravityBody
 
 {
     [Export]
@@ -12,6 +12,7 @@ public partial class SpaceShip : CharacterBody2D
 
 	[Export] public float Mass = 5000f;
 
+	private float G;
 	private AnimatedSprite2D _AnimSprite2D;
 
 	private Vector2 inputVector;
@@ -61,11 +62,7 @@ public partial class SpaceShip : CharacterBody2D
 		//Velocity += Transform.X * Input.GetAxis("down", "up") * Speed;
 	}
 
-	public void addForce(Vector2 force)
-	{
-		//Calculate velocity based on the force applied
-		Velocity += force/Mass;
-	}
+	
 	
 
 	private void outOfBounds()
@@ -88,6 +85,54 @@ public partial class SpaceShip : CharacterBody2D
 			Position = new Vector2(Position.X,1e4f);
 		}
 	}
+
+	//Gravity:
+	private void addForce(Vector2 force)
+	{
+		//Calculate velocity based on the force applied
+		Velocity += force/Mass;
+	}
+	//Interface Gravity
+	public void setGravityConstant(float g)
+	{
+		G =g;
+	}
+
+	public void setGravityMass(float mass)
+	{
+		Mass = mass;
+	}
+
+	public float getGravityMass()
+	{
+		return Mass;
+	}
+
+	public Vector2 getGravityPosition()
+	{
+		return new Vector2(Position.X, Position.Y);
+	}
+
+	public void applyGravityForce(Vector2 position, float mass)
+	{
+		//Calculate the direction of the force
+		Vector2 direction = position - Position;
+		//Calculate the magnitude of the force
+		float distance = direction.Length();
+		//Normalize the direction
+		direction = direction.Normalized();
+		//Calculate the force
+		float magnitude = (mass / (distance));
+		
+		Vector2 gravityForce = direction* magnitude;
+		
+		gravityForce = gravityForce * G;
+		
+		addForce(gravityForce);
+		
+	}
+
+
 
 	public override void _Process(double delta)
 	{

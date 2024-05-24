@@ -4,3 +4,8 @@
 
 [node name="Galaxy" type="Node2D"]
 script = ExtResource("1_niqq6")
+planetCount = 30
+meanMass = 1500.0
+massDeviation = 1000.0
+sunMass = 100000.0
+G = 100.0
