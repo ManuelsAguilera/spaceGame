@@ -17,7 +17,8 @@ public partial class Galaxy : Node2D
 	[Export] public float sunDirection;
 
 	[Export] public float sunMass;
-	
+	[Export] public ulong seed=0;
+	private RandomNumberGenerator rng;
 
 	private SpaceShip ship =  null;
 	private Star sun = null;
@@ -27,8 +28,17 @@ public partial class Galaxy : Node2D
 	public List<IGravityBody> Bodys = new List<IGravityBody>();
 	public override void _Ready()
 	{
+		rng = new RandomNumberGenerator();
 		
-		
+		if (seed == 0)
+		{
+			rng.Randomize();
+			seed = rng.Seed;
+		}
+		else			
+			rng.Seed = seed;
+	
+			
 		
 		if (ship == null)
 		{
@@ -74,7 +84,7 @@ public partial class Galaxy : Node2D
 	{
 		//returns a random position from a circle with radius R
 		//such as radiusX < R < radiusY
-		var rng = new RandomNumberGenerator();
+		
 		var length = rng.RandfRange(limits.X, limits.Y);
 		Vector2 position = new Vector2(0,length);
 		return position.Rotated( rng.RandfRange(0, 2 * Mathf.Pi));

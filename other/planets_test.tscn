@@ -16,6 +16,7 @@ limits = Vector2(1000, 2000)
 massDeviation = 900.0
 sunDirection = -1.0
 sunMass = 1000.0
+seed = 5
 G = 20.0
 
 [node name="UI" type="Control" parent="."]

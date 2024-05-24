@@ -1,13 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba68hhi6kje12"]
+[gd_scene load_steps=4 format=3 uid="uid://ba68hhi6kje12"]
 
 [ext_resource type="Script" path="res://Planets/Star.cs" id="1_mmnx4"]
 [ext_resource type="Texture2D" uid="uid://bhknarww8m1pf" path="res://Planets/star.png" id="2_hfxv2"]
-[ext_resource type="Script" path="res://Planets/Line2D.cs" id="3_a1100"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol7ok"]
-size = Vector2(120, 122)
-
-[sub_resource type="Curve" id="Curve_5fnvv"]
+size = Vector2(443, 377.25)
 
 [node name="Star" type="RigidBody2D"]
 collision_layer = 0
@@ -21,12 +18,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_hfxv2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 11)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_ol7ok")
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0)
-width = 50.0
-width_curve = SubResource("Curve_5fnvv")
-texture_mode = 2
-script = ExtResource("3_a1100")

@@ -12,7 +12,7 @@ public partial class Planet : RigidBody2D, IGravityBody
 	private Vector2 scale;
 
 
-	public void _Ready()
+	public override void _Ready()
 	{
 		//First code to be executed
 		scale=Scale*Mass/500		;
