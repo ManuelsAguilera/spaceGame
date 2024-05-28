@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="spaceship"
-run/main_scene="res://menus/menu_principal.tscn"
+run/main_scene="res://menus/MainMenu/menu_principal.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -75,6 +75,9 @@ select={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="forward_plus"
 renderer/rendering_method.web="forward_plus"
+textures/decals/filter=0
+textures/light_projectors/filter=0
 anti_aliasing/quality/use_taa=true

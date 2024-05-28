@@ -1,23 +1,22 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpke5xthvi46v"]
 
 [ext_resource type="Script" path="res://other/autoCamera.cs" id="2_1piet"]
-[ext_resource type="PackedScene" uid="uid://b2x2tfcha1ioh" path="res://Planets/galaxy.tscn" id="2_7683o"]
+[ext_resource type="PackedScene" uid="uid://b2x2tfcha1ioh" path="res://Planets/galaxy/galaxy.tscn" id="2_7683o"]
 [ext_resource type="Script" path="res://other/FpsMeter.cs" id="3_6ulo0"]
 
 [node name="PlanetsTest" type="Node2D"]
 
 [node name="autoCamera" type="Camera2D" parent="."]
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(0.1, 0.1)
 script = ExtResource("2_1piet")
 
 [node name="Galaxy" parent="." instance=ExtResource("2_7683o")]
-planetCount = 50
-limits = Vector2(1000, 2000)
-massDeviation = 900.0
+planetCount = 100
+limits = Vector2(3000, 4000)
+meanMass = 1200.0
 sunDirection = -1.0
-sunMass = 1000.0
 seed = 5
-G = 20.0
+G = 30.0
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

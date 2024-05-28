@@ -1,0 +1,4 @@
+This class is suposed to be like a planet, however its mass must be massive and atract other objects.
+Without being atracted to anyone, by creating multiple stars we can distribute more randomly the planets.
+When a body enters a certain radius, from inside to the outside of the star, the body should dissapear.
+The dissapeared body should die, and respawn, or simply dissapear.

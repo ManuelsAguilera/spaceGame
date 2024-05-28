@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://11mkas6dam2l"]
+[gd_scene load_steps=11 format=3 uid="uid://11mkas6dam2l"]
 
 [ext_resource type="Script" path="res://Player/SpaceShip.cs" id="1_xomki"]
 [ext_resource type="Texture2D" uid="uid://jo4ls12k6gif" path="res://Player/Sprites/SpaceshipMove_0001.png" id="2_flror"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bxjfr3qx6wcpp" path="res://Player/Sprites/SpaceshipMove_0004.png" id="5_x6d6w"]
 [ext_resource type="Texture2D" uid="uid://6vly8kajncby" path="res://Player/Sprites/SpaceshipMove_0005.png" id="6_o2h27"]
 [ext_resource type="Texture2D" uid="uid://b8khc4r1lugp" path="res://Player/Sprites/Spaceship.png" id="7_5ejyb"]
+[ext_resource type="Script" path="res://Player/AudioStreamPlayer.cs" id="8_n8iev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37l3t"]
 
@@ -50,3 +51,7 @@ shape = SubResource("RectangleShape2D_37l3t")
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s8aek")
+animation = &"Moving"
+
+[node name="soundPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("8_n8iev")

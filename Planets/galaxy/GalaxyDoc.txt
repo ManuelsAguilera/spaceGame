@@ -1,0 +1,6 @@
+The Galaxy class, is one that generates a "level", or a system of multiple planets, stars
+ and bodys wich inherit from IGravityBody.
+
+This, means that this class must be able to store, access and edit the multiple entitys wich it stores.
+
+Also it must generate, and inicialize every instance.

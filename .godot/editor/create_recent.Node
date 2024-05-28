@@ -1,0 +1,8 @@
+AudioStreamPlayer
+Panel
+Control
+Button
+Label
+TextEdit
+CollisionShape2D
+Area2D
