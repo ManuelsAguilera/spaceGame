@@ -1,0 +1,5 @@
+A planet is an object, wich is made to make ambience, and to be interactive with the player.
+This is a common object, that can however be used to implement multiple variants
+of planets, asteroids, etc.
+
+Every planet can have different masses, and sprites.

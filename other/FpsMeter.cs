@@ -10,12 +10,15 @@ public partial class FpsMeter : Label
 	private Vector2 shipVelocity;
 	public override void _Ready()
 	{
-		ship = (SpaceShip) GetNode("/root/Space/SpaceShip");
-		GD.Print("ship "+ (ship !=null));
-
+		ship = (SpaceShip) GetTree().Root.GetNode("Space/SpaceShip");
+		
+		if (ship ==null)
+			return;
 		//add position and velocity
 		shipPosition = ship.Position;
 		shipVelocity = ship.Velocity;
+		
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,6 +27,8 @@ public partial class FpsMeter : Label
 		var fps = Engine.GetFramesPerSecond();
 		Text = "FPS: " + fps.ToString();
 
+		if (ship==null)
+			return;
 		if (time_elapsed < 0.5)
 			time_elapsed+=delta;
 		else{ //update the position and velocity of the ship
@@ -33,6 +38,7 @@ public partial class FpsMeter : Label
 			}
 		Text += "\nCoordinates: " + shipPosition.ToString() + "\n";
 		Text += "Velocity: " + shipVelocity.ToString() + "\n";
+		Text += "MaxHealth" + SpaceShip.maxHealth.ToString() + " Health: ("+ship.healthPoints+")\n";
 		
 	}
 }
